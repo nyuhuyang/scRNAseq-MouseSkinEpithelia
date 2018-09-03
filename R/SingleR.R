@@ -92,7 +92,7 @@ kable(table(singler$singler[[1]]$SingleR.single.main$labels,
 # cell percentage
 prop.table(x = table(singler$singler[[1]]$SingleR.single.main$labels,
                      MouseSkin@meta.data$orig.ident),margin = 2) %>%
-        kable  %>% kable_styling()
+        kable()  %>% kable_styling()
 # total cell number
 table(singler$meta.data$orig.ident) %>% t() %>% kable() %>% kable_styling()
 
