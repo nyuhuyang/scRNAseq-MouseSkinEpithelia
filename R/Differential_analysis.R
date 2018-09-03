@@ -6,6 +6,7 @@
 
 library(Seurat)
 library(dplyr)
+library(tidyr)
 library(kableExtra)
 library(SingleR)
 library(MAST)
@@ -50,15 +51,21 @@ MouseSkin@ident <- factor(MouseSkin@ident, levels = (c("Hair Germ",
                                                        "Sebaceous Gland",
                                                        "Bulge (HF-SCs)",
                                                        "Supra-basal HF")))
-TSNEPlot.1(object = MouseSkin,do.label = T, group.by = "ident", 
-           do.return = TRUE, no.legend = T, 
+TSNEPlot.1(object = MouseSkin,do.label = F, group.by = "ident", 
+           do.return = TRUE, no.legend = F, 
            colors.use = c(singler.colors[c(1,3:8)],"#33b3a6"),
            pt.size = 1,label.size = 5,label.repel = T,force=1)+
         ggtitle("TSNEPlot of all clusters")+
         theme(text = element_text(size=20),							
               plot.title = element_text(hjust = 0.5,size=18, face = "bold"))
+save(MouseSkin, file = "./output/MouseSkin_20180903.Rda")
 
 # 4.2  for 2018/08/31 email ==================
+#1) ID cell population
+ID <- data.frame(cell_ID = rownames(MouseSkin@meta.data),
+                 CellType = as.vector(MouseSkin@ident))
+write.csv(ID,"./output/ID_cell_populations.csv")
+
 Reference_cell_populations_sig_genes <- readxl::read_excel("./doc/Reference_cell_populations_sig_genes_HY.xlsx")
 Skin_Markers <- as.data.frame(Reference_cell_populations_sig_genes[,-1])
 colnames(Skin_Markers) = Skin_Markers[1,]
@@ -110,11 +117,3 @@ BasalHFbyAge = FindAllMarkersbyAge(MouseSkin,ident.use = "Basal HF" ,
                                     colors.use = "#FDC086")
 # find and print differentially expressed genes across conditions ================
 # combine SetIdent,indMarkers and avg_UMI
-
-# 4.2.3 To Monocle
-#source("http://bioconductor.org/biocLite.R")
-#biocLite()
-biocLite("monocle")                  
-library(monocle)
-
-MouseSkin_monocle = importCDS(MouseSkin)
