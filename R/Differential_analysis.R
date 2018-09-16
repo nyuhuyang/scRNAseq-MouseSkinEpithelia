@@ -61,6 +61,7 @@ TSNEPlot.1(object = MouseSkin,do.label = F, group.by = "ident",
 save(MouseSkin, file = "./output/MouseSkin_20180903.Rda")
 
 # 4.2  for 2018/08/31 email ==================
+
 #1) ID cell population
 ID <- data.frame(cell_ID = rownames(MouseSkin@meta.data),
                  CellType = as.vector(MouseSkin@ident))
@@ -78,14 +79,20 @@ df_Skin_Markers <- list2df(Skin_Markers)
 df_Skin_Markers <- gather(df_Skin_Markers, key = "cell_type", value = "gene",
                           na.rm = T)
 
-# 4.2.1 VioPlot_genes=====
+# 4) Violin plot for selected HF or Epd genes (2nd sheet on the excel file) 
 VioPlot_genes <- readxl::read_excel("./doc/Reference_cell_populations_sig_genes_HY.xlsx", 
                sheet = "Violin plot genes")
 VioPlot_genes = as.vector(as.matrix(VioPlot_genes[,1]))
-df_Skin_Markers[(df_Skin_Markers$gene %in% VioPlot_genes),"cell_type"]
 Vioplot_genes = MouseGenes(MouseSkin,VioPlot_genes)
-VlnPlot(object = MouseSkin, features.plot = Vioplot_genes[31:32],x.lab.rot = T)
-
+MS <- SplitSeurat(MouseSkin)
+MS_old <- MS[[1]]
+MS_young <- MS[[2]]
+P1 <- SingleFeaturePlot.1(MS_young, "nUMI", threshold = 2500,use.scaled = T)
+P2 <- SingleFeaturePlot.1(MS_old, "nUMI", threshold = 2500,use.scaled = T)
+plot_grid(P1,P2)
+g1 <- VlnPlot(object = MS_young, features.plot = Vioplot_genes[31:32],x.lab.rot = T)
+g2 <- VlnPlot(object = MS_old, features.plot = Vioplot_genes[31:32],x.lab.rot = T)
+plot_grid(g1, g2, nrow = 2)
 # 4.2.2 DE analysis for a) young vs old Bulge,Basal Epidermis, Basal Hair Follicle
 FindAllMarkersbyAge<- function(object, ident.use ,colors.use = NULL, 
                                select.plots = c(2,1),pt.size = 1,label.size = 5,
@@ -99,7 +106,12 @@ FindAllMarkersbyAge<- function(object, ident.use ,colors.use = NULL,
         ident.new = paste(ident.use, object@meta.data$orig.ident,sep = "_")
         object <- SetIdent(object, ident.use = ident.new)
         print(table(object@ident))
-        gde.all <- FindAllMarkers.UMI(object,test.use = test.use,...)
+        gde.all <- FindAllMarkers.UMI(object,test.use = test.use,
+                                      logfc.threshold = 0.01,
+                                      min.pct = 0, min.diff.pct = -Inf, 
+                                      min.cells = 0 ,
+                                      max.cells.per.ident = Inf, 
+                                      return.thresh = 1,...)
         gde.all =  dplyr::select(gde.all, "gene",everything())
         rownames(gde.all) = NULL
         
@@ -109,7 +121,7 @@ FindAllMarkersbyAge<- function(object, ident.use ,colors.use = NULL,
         return(gde.all)
 }
 
-BulgebyAge = FindAllMarkersbyAge(MouseSkin,ident.use = "Bulge (HF-SCs)" ,
+BulgebyAge = FindAllMarkersbyAge(MouseSkin,ident.use = "Bulge (HF-SCs)",
                                  colors.use = "#1B9E77")
 BasalEpdbyAge = FindAllMarkersbyAge(MouseSkin,ident.use = "Basal Epd" ,
                                  colors.use = "#F0027F")

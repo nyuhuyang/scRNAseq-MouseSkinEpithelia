@@ -8,7 +8,7 @@ library(Seurat)
 library(SingleR)
 library(dplyr)
 library(ggrepel)
-source("../R/Seurat_functions.R")
+source("./R/Seurat_functions.R")
 ########################################################################
 #
 #  1 Seurat Alignment 
