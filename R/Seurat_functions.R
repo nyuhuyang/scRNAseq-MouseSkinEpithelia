@@ -871,7 +871,7 @@ SplitSeurat <- function(object = object, split.by = "conditions"){
 #' @export p ggplot object from TSNEplot
 #' @example SplitTSNEPlot(mouse_eyes, split.by = "conditions")
 #' @example SplitTSNEPlot(mouse_eyes, split.by = "Rlbp1", select.plots = c(2,1))
-SplitTSNEPlot <- function(object = mouse_eyes, split.by = "conditions",
+SplitTSNEPlot <- function(object, split.by = "conditions",
                             select.plots = NULL, return.plots = FALSE,
                             do.label = T, group.by = "ident", no.legend = TRUE,
                             pt.size = 1,label.size = 5,... ){
