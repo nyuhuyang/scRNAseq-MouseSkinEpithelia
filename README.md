@@ -9,7 +9,7 @@ This project provides the code developed in the study of Yejing Ge _et al._ **_"
 
 ## **Data**
 
-Raw counts data and processed Seurat object will be released after final publication.
+Raw counts data and processed Seurat object will be released after the final publication.
 
 ## **Reproduce results**
 
@@ -17,30 +17,28 @@ Raw counts data and processed Seurat object will be released after final publica
 Move Cell ranger output foder under `data`.
 [1 Seurat_setup.R](https://github.com/nyuhuyang/scRNAseq-MouseSkin/blob/master/R/Seurat_setup.R)
 
-This script uses Seurat 2 to read the result from the Cell ranger outputs; perform normalization, scaling, dimension reduction, and unsupervised-clustering. The output Seurat object will be saved in the file `data/MouseSkin_{date}.Rda`
+This script uses Seurat 2 to read the result from the Cell ranger outputs, perform normalization, scaling, dimension reduction, and unsupervised-clustering. The output Seurat object will be saved in the file `data/MouseSkin_{date}.Rda`
 
 #### **2-3. Identify cell types**
 
 [2 Identify_Cell_Types_Manually.R](https://github.com/nyuhuyang/scRNAseq-MouseSkin/blob/master/R/Identify_Cell_Types_Manually.R)
 
-This script use predefinde cell type markers to manually identify cell types.
+This script uses predefined cell type markers to identify cell types manually.
+It contains source code for generating Fig 1B.
 
-In addition, an R shiny app is built to identify cell types. [scRNAseq-MouseSkin]()
+Besides, an R shiny app is built to identify cell types. [scRNAseq-MouseSkin](https://weillcornellmed.shinyapps.io/MouseSkin/)
 
 
 [3 SingleR.R](https://github.com/nyuhuyang/scRNAseq-MouseSkin/blob/master/R/SingleR.R)
 
-This script use SingleR package to identify cell types based reference datasets.
+This script uses the SingleR package to identify cell types based on reference datasets.
 
-#### **6-9. Characterize CD45+ tumor infiltrate of mouse tumors**
+#### **4-6. Generate Figures and data exploration**
 
-[6 Figures.R](https://github.com/nyuhuyang/scRNAseq-Immunosurveillance/blob/master/R/Figures.R), removing unwanted cells, relabel the clustering, generate tsne plot and bar plots. 
+[4 Major_Figures.R](https://github.com/nyuhuyang/scRNAseq-MouseSkin/blob/master/R/Major_Figures.R)
 
-For more information see
-[_Generate TSNE plots and compare gene expression in individual cell types (figure 8a-b)_](https://github.com/nyuhuyang/scRNAseq-Immunosurveillance/wiki/1.-Generate-TSNE-plots-and-compare-gene-expression-in-individual-cell-types)
+This script contains source code for generating Fig 1A, 1C, and 1S.
 
-[7 Differential_analysis.R](https://github.com/nyuhuyang/scRNAseq-Immunosurveillance/blob/master/R/Differential_analysis.R), conducting differential analysis between control and NAM treated tumor sample, and generate heatmaps.
+[5 Differential_analysis.R](https://github.com/nyuhuyang/scRNAseq-MouseSkin/blob/master/R/Differential_analysis.R), conducting differential analysis between Young and Aged sample.
 
-[8 FGESA.R](https://github.com/nyuhuyang/scRNAseq-Immunosurveillance/blob/master/R/FGESA.R), performing gene set enrichment analysis based on the results from previous step 7. 
-
-For more information, see [_Differential analysis and gene set enrichment analysis (figure S7, S8)_](https://github.com/nyuhuyang/scRNAseq-Immunosurveillance/wiki/2.-Differential-analysis-and-gene-set-enrichment-analysis)
+[6 Monocle.R](https://github.com/nyuhuyang/scRNAseq-Immunosurveillance/blob/master/R/FGESA.R), performing Monocle analysis. 
