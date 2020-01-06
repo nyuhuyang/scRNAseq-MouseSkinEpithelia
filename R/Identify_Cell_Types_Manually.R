@@ -137,9 +137,23 @@ table(MouseSkin@ident, MouseSkin@meta.data$orig.ident) %>% kable() %>% kable_sty
 table(MouseSkin@ident, MouseSkin@meta.data$orig.ident) %>% 
         prop.table(margin = 2) %>% kable() %>% kable_styling()# margin = 2: divided by the sum of the column cells
 
-#====== 2.4 Vln Plot==========================================
 
-VlnPlot(object = pbmc, features.plot = c("MS4A1", "CD79A"))
+# ======= Seurat 3 dotplot ==========
+# 1B DotPlot
+markers.to.plot <- c('Krt24','Cd34','Grem1','Id2','Tnc','Thsd1','S100a4','Sfrp1',
+                     'Dkk3','Pdzrn4','Postn','Angptl7','Cldn10','Lhx2','Lgr5',
+                     'Tgm5','Sox9','Cd200','Krt17','Fst','Aqp3','Aldh3a1','Sostdc1',
+                     'Gstm1','Gstm5','Calml3','Gli1','Lgr6','Lrig1','Plet1','Gata6',
+                     'Pparg','Prdm1','Igfbp2','Mgst1','Sprr1a','Krt79','Defb6','Cst6',
+                     'Alox12e','Ly6a','Klf5','Tfap2c','Gata3','Pou3f1','Ifngr1','Il1r2',
+                     'Il6ra','Il33','Ndufa4l2','Serpinb2','Grhl1','Krt10','Krt77','Mt4',
+                     'Krt1','Krtdap','Calm4','Ccnb1','Ccnb2','Cdk1','Top2a','Cdc20',
+                     'Mki67','Cdca3','Birc5','Cenpf','Nusap1','Ube2c')
 
-Reference_cell_populations_sig_genes <- read_excel("doc/Reference cell populations sig genes.xlsx", 
-                                                   +     sheet = "Violin plot genes")
+jpeg(paste0(path,"F1B_dotplot.jpeg"),units="in", width=10, height=7,res=600)
+DotPlot(object, features = rev(markers.to.plot),
+        cols = c("red", "blue"),
+        split.by = "conditions") + 
+    theme(axis.text.x = element_text(size=4))+
+    RotatedAxis()
+dev.off()

@@ -113,8 +113,25 @@ jpeg(paste0(path,"F1A_title.jpeg"),units="in", width=10, height=2.5,res=600)
 grid.arrange(g1, g2, g3, g4, nrow = 1)
 dev.off()
 
+# 1B DotPlot
+markers.to.plot <- c('Krt24','Cd34','Grem1','Id2','Tnc','Thsd1','S100a4','Sfrp1',
+                     'Dkk3','Pdzrn4','Postn','Angptl7','Cldn10','Lhx2','Lgr5',
+                     'Tgm5','Sox9','Cd200','Krt17','Fst','Aqp3','Aldh3a1','Sostdc1',
+                     'Gstm1','Gstm5','Calml3','Gli1','Lgr6','Lrig1','Plet1','Gata6',
+                     'Pparg','Prdm1','Igfbp2','Mgst1','Sprr1a','Krt79','Defb6','Cst6',
+                     'Alox12e','Ly6a','Klf5','Tfap2c','Gata3','Pou3f1','Ifngr1','Il1r2',
+                     'Il6ra','Il33','Ndufa4l2','Serpinb2','Grhl1','Krt10','Krt77','Mt4',
+                     'Krt1','Krtdap','Calm4','Ccnb1','Ccnb2','Cdk1','Top2a','Cdc20',
+                     'Mki67','Cdca3','Birc5','Cenpf','Nusap1','Ube2c')
 
-# 4) Violin plot for selected HF or Epd genes (2nd sheet on the excel file) 
+jpeg(paste0(path,"F1B_dotplot.jpeg"),units="in", width=10, height=7,res=600)
+DotPlot(object, features = rev(markers.to.plot),
+        cols = c("red", "blue"),
+        split.by = "conditions") + 
+        theme(axis.text.x = element_text(size=4))+
+        RotatedAxis()
+dev.off()
+# 1C Violin plot for selected HF or Epd genes (2nd sheet on the excel file) 
 VioPlot_genes <- c("Krt24","Sox9","Lgr5","Grem1","Lhx2","Tnc",
                    "Ly6a","Klf5","Gata3","Tfap2c","Krt10","Grhl1")
 Vioplot_genes = FilterGenes(object,VioPlot_genes)
