@@ -8,7 +8,11 @@ library(Seurat)
 library(SingleR)
 library(dplyr)
 library(ggrepel)
-source("./R/Seurat_functions.R")
+source("R/Seurat_functions.R")
+path <- paste0("output/",gsub("-","",Sys.Date()),"/")
+if(!dir.exists(path)) dir.create(path, recursive = T)
+if(!dir.exists("data")) dir.create("data")
+if(!dir.exists("doc")) dir.create("doc")
 ########################################################################
 #
 #  1 Seurat Alignment 
@@ -20,7 +24,7 @@ source("./R/Seurat_functions.R")
 # setup Seurat objects since both count matrices have already filtered
 # cells, we do no additional filtering here
 
-MouseSkin_dgCMatrix <- Read10X(data.dir = paste0("./data/skin1/outs/raw_gene_bc_matrices/mm10/"))
+MouseSkin_dgCMatrix <- Read10X(data.dir = paste0("data/skin1/outs/raw_gene_bc_matrices/mm10/"))
 MouseSkin_raw <- list("young" = MouseSkin_dgCMatrix[,grepl("-1",colnames(MouseSkin_dgCMatrix))],
                       "old" = MouseSkin_dgCMatrix[,grepl("-2",colnames(MouseSkin_dgCMatrix))])
 MouseSkin_Seurat <- list()
@@ -143,4 +147,4 @@ TSNEPlot(object = MouseSkin,do.label = T, group.by = "ident",
         theme(text = element_text(size=20),     							
               plot.title = element_text(hjust = 0.5))
 
-save(MouseSkin, file = "./data/MouseSkin_alignment.Rda")
+save(MouseSkin, paste0("data/MouseSkin_",gsub("-","",Sys.Date()),".Rda"))

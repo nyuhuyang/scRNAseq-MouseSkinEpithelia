@@ -7,7 +7,7 @@ source("../R/Seurat_functions.R")
 source("../R/SingleR_functions.R")
 
 #====== 2.1 Create Singler Object  ==========================================
-lname1 = load(file = "./data/MouseSkin_alignment.Rda");lname1
+lname1 = load(file = "data/MouseSkin_alignment.Rda");lname1
 lname2 = load(file='../SingleR/data/ref_Mouse.RData');lname2
 ref_immgen_mouse.rnaseq$name
 length(ref_immgen_mouse.rnaseq$types)
@@ -110,4 +110,4 @@ TSNEPlot(object = MouseSkin,do.label = F, group.by = "ident",
         theme(text = element_text(size=20),							
               plot.title = element_text(hjust = 0.5))
 
-save(MouseSkin, file = "./data/MouseSkin_suplabel_GSE43717.Rda")
+save(MouseSkin, file = "data/MouseSkin_suplabel_GSE43717.Rda")
