@@ -1,1 +1,1 @@
-Visit [Wiki](https://github.com/nyuhuyang/scRNAseq-MouseSkin/wiki/The-aging-skin-microenvironment-dictates-stem-cell-behavior) for details.
+Visit [Wiki](https://github.com/nyuhuyang/scRNAseq-MouseSkinEpithelia/wiki/The-aging-skin-microenvironment-dictates-stem-cell-behavior) for details.
