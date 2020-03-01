@@ -48,4 +48,3 @@ This script contains source code for generating Fig 1A, 1C, and 1S.
 [5 Differential_analysis.R](https://github.com/nyuhuyang/scRNAseq-MouseSkinEpithelia/blob/master/R/Differential_analysis.R), conducting differential analysis between Young and Aged sample.
 
 [6 Monocle.R](https://github.com/nyuhuyang/scRNAseq-Immunosurveillance/blob/master/R/FGESA.R), performing Monocle analysis. 
-Visit [Wiki](https://github.com/nyuhuyang/scRNAseq-MouseSkinEpithelia/wiki/The-aging-skin-microenvironment-dictates-stem-cell-behavior) for details.
